@@ -11,6 +11,18 @@ CREATE TABLE TBL_PRODUTOS(
 	PRIMARY KEY (cod_prod)
 );
 
+CREATE TABLE TBL_ESTOQUE(
+	cod_prod INT(8) NOT NULL,
+    loj_prod INT(8),
+    qtd_prod DECIMAL(15,3),
+	PRIMARY KEY (cod_prod)
+);
+
+CREATE TABLE TBL_LOJAS(
+    loj_prod INT(8) NOT NULL,
+    qtd_prod DECIMAL(15,3),
+	PRIMARY KEY (loj_prod)
+);
 -- Com base na tabela de “produtos” acima favor inserir 
 -- um registro na referida tabela passando os seguintes 
 -- valores : cod_prod =170, loj_prod=2, 
@@ -34,3 +46,20 @@ SELECT * FROM TBL_PRODUTOS
 
 -- Com base na tabela de “produtos” monte um select para trazer 
 -- a maior e a menor data  de inclusão do produto “dt_inclu_prod”:
+SELECT cod_prod, MAX(dt_inclu_prod), MIN(dt_inclu_prod) FROM TBL_PRODUTOS GROUP BY cod_prod
+
+-- Com base na tabela de “produtos” monte um select para trazer a 
+-- quantidade total de registros existentes na tabela de “produtos”:
+SELECT count(cod_prod) FROM TBL_PRODUTOS;
+
+
+-- Com base na tabela de “produtos” monte um select para trazer todos 
+-- os produtos que comecem com a letra “L” na tabela de “produtos”:
+SELECT * FROM TBL_PRODUTOS WHERE desc_pro LIKE 'L%'
+
+-- Com base na tabela de “produtos” monte um select para trazer a soma 
+-- de todos os preços dos produtos totalizado por loja:
+SELECT  SUM(preco_prod) AS Total FROM TBL_PRODUTOS GROUP BY loj_prod;
+
+-- Com base na tabela de “produtos” monte um select para trazer a soma de 
+-- todos os preços dos produtos totalizados por loja que seja maior que R$100.000
