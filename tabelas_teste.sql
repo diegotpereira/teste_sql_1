@@ -63,3 +63,25 @@ SELECT  SUM(preco_prod) AS Total FROM TBL_PRODUTOS GROUP BY loj_prod;
 
 -- Com base na tabela de “produtos” monte um select para trazer a soma de 
 -- todos os preços dos produtos totalizados por loja que seja maior que R$100.000
+SELECT SUM(preco_prod) as TOTAL FROM TBL_PRODUTOS WHERE preco_prod >= 100 ORDER BY loj_prod;
+
+
+-- A)Montar um unico select para trazer os seguintes campos: o código da loja do produto, 
+-- a descrição da loja, código do produto, a descrição do produto, 
+-- o preço do produto, a quantidade em estoque do produto. Considere  que o 
+-- código da loja para esta consulta seja igual a 1.
+SELECT p.loj_prod, l.desc_loj, p.cod_prod, p.desc_pro, p.preco_prod, e.qtd_prod 
+FROM TBL_PRODUTOS p, TBL_LOJAS l, TBL_ESTOQUE e WHERE p.loj_prod = 1;
+
+-- B)Observe a estrutura da tabela de estoque e da tabela de produtos, 
+-- monte um select para trazer todos os produtos que existem na tabela 
+-- de produtos que não existem na tabela de estoque.
+SELECT * FROM TBL_PRODUTOS p WHERE p.cod_prod NOT IN (SELECT cod_prod FROM TBL_ESTOQUE);
+
+-- C)Observe a estrutura da tabela de estoque e da tabela de produtos, 
+-- monte um select para trazer todos os produtos que existem na tabela 
+-- de estoque que não existem na tabela de produtos.
+
+SELECT * FROM TBL_ESTOQUE e WHERE e.cod_prod NOT IN (SELECT cod_prod FROM TBL_PRODUTOS);
+
+
